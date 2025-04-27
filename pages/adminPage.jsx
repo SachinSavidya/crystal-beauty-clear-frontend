@@ -1,5 +1,7 @@
 import { Link, Route, Routes} from "react-router-dom";
 import { FaUsers } from "react-icons/fa";
+import AdminProductPage from "./admin/products";
+import AddProductPage from "./admin/addProduct";
 
 
 export default function AdminPage(){
@@ -13,7 +15,8 @@ export default function AdminPage(){
             <div className="h-full bg-white w-[calc(100vw-300px)] rounded-lg ">
                 <Routes path="/*">
                     <Route path="/users" element={<h1>Users</h1>}/>
-                    <Route path="/products" element={<h1>Products</h1>}/>
+                    <Route path="/products" element={<AdminProductPage/>}/>
+                    <Route path="/addProduct" element={<AddProductPage/>}/>
                     
                 </Routes>
             </div>
