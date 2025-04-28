@@ -52,16 +52,11 @@ export default function AdminProductPage(){
                     }
                 ) 
                 }
-                    <tr>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                    </tr>
                 </tbody>
             </table>
             
         </div>
     )
 }
+//https://kwfxlzqkmqonkmraqvgi.supabase.co
+//eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imt3ZnhsenFrbXFvbmttcmFxdmdpIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDU3OTEzMTYsImV4cCI6MjA2MTM2NzMxNn0.GjbH0fRmANh7cWvZye4vZXAqiGOPJGAEM62BVX1wd-E

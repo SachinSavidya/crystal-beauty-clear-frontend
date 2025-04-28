@@ -1,7 +1,7 @@
 import { Link, Route, Routes} from "react-router-dom";
 import { FaUsers } from "react-icons/fa";
 import AdminProductPage from "./admin/products";
-import AddProductPage from "./admin/addProduct";
+import AddProductPage from "./admin/addProductForm";
 
 
 export default function AdminPage(){

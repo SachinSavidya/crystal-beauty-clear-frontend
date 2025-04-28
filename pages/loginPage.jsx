@@ -50,7 +50,7 @@ export default function LoginPage(){
                             setPassword(e.target.value);
                         }}
                         className=" w-[400px] h-[50px] rounded-xl border border-white text-black text-center m-[5px] " placeholder="Password" type="password" />
-                    <button onClick={handleLogin} className="w-[400px] h-[50px] rounded-xl bg-blue-500 text-white cure cursor-pointer "> Log in</button>
+                    <button onClick={handleLogin} className="w-[400px] h-[50px] rounded-xl bg-blue-500 text-white cure cursor-pointer hover:bg-blue-600 "> Log in</button>
                 </div>
             </div>
             <div className="w-[50%] h-full">
