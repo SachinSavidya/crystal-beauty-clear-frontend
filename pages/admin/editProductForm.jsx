@@ -1,20 +1,27 @@
+import toast from "react-hot-toast";
 import axios from "axios";
 import { useState } from "react";
-import toast from "react-hot-toast";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import mediaUpload from "../../src/utils/mediaUpload";
 
-export default function AddProductPage(){
+
+export default function EditProductPage(){
 
     const navigate = useNavigate();
+    const locationData = useLocation();
 
-    const [productId, setProductId] = useState("");
-    const [name, setName] = useState("");
-    const [altNames, setAltNames] = useState("");
-    const [price, setPrice] = useState("");
-    const [labeledPrice, setlabeledPrice] = useState("");
-    const [description, setDescription] = useState("");
-    const [stock, setStock] = useState("");
+    if(locationData.state == null){
+        toast.error("Missing product data!");
+        window.location.href = "/admin/products"
+    }
+
+    const [productId, setProductId] = useState(locationData.state.productId);
+    const [name, setName] = useState(locationData.state.productName);
+    const [altNames, setAltNames] = useState(locationData.state.altName.join(","));
+    const [price, setPrice] = useState(locationData.state.price);
+    const [labeledPrice, setlabeledPrice] = useState(locationData.state.labeledPrice);
+    const [description, setDescription] = useState(locationData.state.description);
+    const [stock, setStock] = useState(locationData.state.stock);
     const [images, setImages] = useState([]);
 
     async function handleSubmit(){
@@ -25,11 +32,14 @@ export default function AddProductPage(){
             promisesArray[i] = promise
         }
         try{
-            const result = await Promise.all(promisesArray)
+            let result = await Promise.all(promisesArray)
+
+            if(images.length == 0){
+                result = locationData.state.images
+            }
 
             const altNamesInArray = altNames.split(",");
             const product = {
-                productId : productId,
                 productName : name,
                 altName : altNamesInArray,
                 price : price,
@@ -40,17 +50,17 @@ export default function AddProductPage(){
             }
             const token = localStorage.getItem("token")
 
-            axios.post(import.meta.env.VITE_BACKEND_URL+"/api/product", product, {
+            axios.put(import.meta.env.VITE_BACKEND_URL+"/api/product/"+productId, product, {
                 headers : {
                     "Authorization" : "Bearer " + token
                 }
             })
-            toast.success("Product added successfully");
+            toast.success("Product updated successfully");
             navigate("/admin/products");
 
         } catch (err){
             console.log(err);
-            toast.error("Product add failed");
+            toast.error("Product updating failed");
         }
         
     }
@@ -58,8 +68,9 @@ export default function AddProductPage(){
     return(
         <div className="w-full h-full flex justify-center items-center ">
             <div className="w-[500px] h-[600px] bg-white rounded-lg shadow-2xl p-2 flex flex-col items-center">
-                <h1 className="text-2xl font-bold m-2">Add Product</h1>
+                <h1 className="text-2xl font-bold m-2">Edit Product</h1>
                 <input 
+                    disabled
                     value={productId}
                     onChange={
                         (e)=>{
@@ -144,7 +155,7 @@ export default function AddProductPage(){
 
                 <div className="w-[400px] h-[50px] flex justify-between items-center m-2">
                     <Link to={"/admin/products"} className="bg-red-500 w-[180px] h-[50px] rounded-xl text-center p-3 hover:bg-red-600 text-white ">Cancel</Link>
-                    <button onClick={handleSubmit} className="w-[180px] h-[50px] bg-green-500 rounded-xl p-3 hover:bg-green-600 text-white cursor-pointer " type="submit">Add Product </button>
+                    <button onClick={handleSubmit} className="w-[180px] h-[50px] bg-green-500 rounded-xl p-3 hover:bg-green-600 text-white cursor-pointer " type="submit">Edit Product </button>
                 </div>
 
 

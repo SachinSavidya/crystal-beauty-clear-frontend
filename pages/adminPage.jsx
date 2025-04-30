@@ -2,6 +2,7 @@ import { Link, Route, Routes} from "react-router-dom";
 import { FaUsers } from "react-icons/fa";
 import AdminProductPage from "./admin/products";
 import AddProductPage from "./admin/addProductForm";
+import EditProductPage from "./admin/editProductForm";
 
 
 export default function AdminPage(){
@@ -17,6 +18,7 @@ export default function AdminPage(){
                     <Route path="/users" element={<h1>Users</h1>}/>
                     <Route path="/products" element={<AdminProductPage/>}/>
                     <Route path="/addProduct" element={<AddProductPage/>}/>
+                    <Route path="/editProduct" element={<EditProductPage/>}/>
                     
                 </Routes>
             </div>
