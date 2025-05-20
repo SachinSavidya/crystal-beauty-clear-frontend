@@ -2,10 +2,11 @@ import { Route, Routes } from "react-router-dom";
 import Header from "../src/components/header";
 import ProductPage from "./client/productsPage";
 import ProductOverview from "./client/productOverview";
+import CartPage from "./client/cart";
 
 export default function HomePage(){
     return(
-        <div className="w-full h-screen max-h-screen">
+        <div className="w-full min-h-screen">
             <Header/>
             <div className="w-full min-h-[calc(100vh-70px)] bg-pink-100">
                 <Routes path="/*">
@@ -13,6 +14,7 @@ export default function HomePage(){
                     <Route path="/products" element={<ProductPage/>} />
                     <Route path="/overview/:id" element={<ProductOverview/>} />
                     <Route path="/*" element={<h1>Error 404 not found</h1>} />
+                    <Route path="/cart" element={<CartPage/>} />
                     
                 </Routes>
 
