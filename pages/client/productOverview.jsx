@@ -1,6 +1,6 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import Loader from "../../src/components/loader";
 import toast from "react-hot-toast";
 import ImageSlider from "../../src/components/imageSlider";
@@ -9,6 +9,7 @@ import { addToCart } from "../../src/utils/cart";
 export default function ProductOverview(){
 
     const params= useParams();
+    const navigate = useNavigate();
  
 
     const [product, setProduct] = useState(null)
@@ -36,7 +37,7 @@ export default function ProductOverview(){
         },[status]    
     )   
     return(
-        <div className="w-full h-full">
+        <div className="w-full min-h-[calc(100vh-70px)]">
             {
                 status == "Loading" &&
                 <div className="w-full h-full flex justify-center items-center">
@@ -47,11 +48,11 @@ export default function ProductOverview(){
             }
             {
                 status == "Loaded" && 
-                <div className="w-full h-full flex">
-                    <div className="w-[50%] h-full justify-center items-center flex">
+                <div className="w-full min-h-[calc(100vh-70px)] flex ">
+                    <div className="w-[50%] min-h-full justify-center items-center flex ">
                        <ImageSlider images={product.images} />
                     </div>
-                    <div className="w-[50%] h-full flex justify-center items-center flex-col p-[50px]">
+                    <div className="w-[50%] min-h-full flex justify-center items-center flex-col p-[50px]">
                         <h1 className="text-3xl font-semibold text-center mb-4">{product.productName} <span className="text-2xl text-gray-500">{" | "}{product.altName.join(" | ")}</span></h1>
                         
                         <div className=" flex mb-3">
@@ -75,7 +76,24 @@ export default function ProductOverview(){
                             }>
                             Add to Cart
                             </button>
-                            <button className="border rounded-md p-3 text-lg mx-4 bg-pink-600 text-white w-[250px] h-[60px] hover:bg-white hover:text-pink-600 cursor-pointer">
+                            <button className="border rounded-md p-3 text-lg mx-4 bg-pink-600 text-white w-[250px] h-[60px] hover:bg-white hover:text-pink-600 cursor-pointer"
+                            onClick={()=>{
+                                navigate("/checkout",{
+                                    state : {
+                                        items : [
+                                            {
+                                                productId : product.productId,
+                                                name : product.productName,
+                                                altName : product.altName,
+                                                price : product.price,
+                                                labeledPrice : product.labeledPrice,
+                                                image : product.images[0],
+                                                quantity : 1
+                                            }
+                                        ] 
+                                    }
+                                })
+                            }}>
                             Buy Now
                             </button>
                         </div>

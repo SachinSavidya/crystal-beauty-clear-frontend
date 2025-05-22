@@ -1,10 +1,12 @@
 import { useEffect, useState } from "react"
-import { addToCart, getCart, removeFromCart } from "../../src/utils/cart"
+import { addToCart, getCart, getLabaledTotal, getTotal, removeFromCart } from "../../src/utils/cart"
 import { LuTrash2 } from "react-icons/lu";
+import { useNavigate } from "react-router-dom";
 
  export default function CartPage(){
     const [cartLoaded, setCartLoaded] = useState(false)
     const [cart, setCart] = useState([])
+    const navigate = useNavigate();
 
     useEffect(
         ()=>{
@@ -54,7 +56,7 @@ import { LuTrash2 } from "react-icons/lu";
                                             }
                                         }>+</button>
                                     </div>
-                                    <div className="flex items-center justify-center text-xl w-[100px] h-full">
+                                    <div className="flex items-center justify-end text-xl w-[100px] h-full pr-3">
                                         <h1>{(item.price*item.quantity).toFixed(2)}</h1>
                                     </div>
 
@@ -63,6 +65,32 @@ import { LuTrash2 } from "react-icons/lu";
                         }
                     )
                 }
+                <div className="w-full h-[100px] justify-end flex pr-3 text-xl mt-2 ">
+                    <div className="w-[100px] pr-2">
+                        <h1 className=" flex justify-end">Total :</h1>
+                        <h1 className=" flex justify-end">Discount :</h1>
+                        <h1 className=" flex justify-end">Net Total :</h1>
+                    </div>
+                    <div className="w-[80px] ">
+                        <h1 className=" flex justify-end">{getLabaledTotal().toFixed(2)}</h1>
+                        <h1 className=" flex justify-end border-b-2">{(getLabaledTotal()-getTotal()).toFixed(2)}</h1>
+                        <h1 className=" flex justify-end border-b-4 border-double font-semibold">{getTotal().toFixed(2)}</h1>
+                    </div>  
+                </div>
+                <div className="flex justify-end w-full">
+                    <button className="w-[180px] text-center flex justify-center bg-pink-400 p-2 rounded-xl text-xl mt-2 text-white cursor-pointer hover:bg-pink-500"
+                    onClick={
+                        ()=>{
+                            navigate("/checkout",
+                            {
+                                state : {
+                                    items : cart
+                                }
+                            })
+                        }} >
+                    Checkout</button>
+                </div>
+                
             </div>
 
         </div>
