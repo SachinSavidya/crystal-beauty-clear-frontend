@@ -20,6 +20,15 @@ export default function RegisterPage() {
     };
 
     const handleRegister = () => {
+        const { firstName, lastName, email, password, confirmPassword, phone } = formData;
+
+        // Basic required field validation
+        if (!firstName || !lastName || !email || !password || !confirmPassword || !phone) {
+        toast.error("Please fill in all fields");
+        return;
+        }
+        
+
         if (formData.password !== formData.confirmPassword) {
             toast.error("Passwords do not match");
             return;
@@ -34,6 +43,7 @@ export default function RegisterPage() {
             password: formData.password,
             phone: formData.phone
         };
+        
 
         axios.post(import.meta.env.VITE_BACKEND_URL + "/api/user/", payload)
             .then((response) => {
@@ -59,6 +69,7 @@ export default function RegisterPage() {
                         className="w-[400px] h-[50px] rounded-xl border border-white text-black text-center m-[5px]"
                         placeholder="First Name"
                         type="text"
+                        required
                     />
                     <input
                         name="lastName"
@@ -66,6 +77,7 @@ export default function RegisterPage() {
                         className="w-[400px] h-[50px] rounded-xl border border-white text-black text-center m-[5px]"
                         placeholder="Last Name"
                         type="text"
+                        required
                     />
                     <input
                         name="email"
@@ -73,6 +85,7 @@ export default function RegisterPage() {
                         className="w-[400px] h-[50px] rounded-xl border border-white text-black text-center m-[5px]"
                         placeholder="Email"
                         type="email"
+                        required
                     />
                     <input
                         name="phone"
@@ -80,6 +93,7 @@ export default function RegisterPage() {
                         className="w-[400px] h-[50px] rounded-xl border border-white text-black text-center m-[5px]"
                         placeholder="Phone"
                         type="text"
+                        required
                     />
                     <input
                         name="password"
@@ -87,6 +101,7 @@ export default function RegisterPage() {
                         className="w-[400px] h-[50px] rounded-xl border border-white text-black text-center m-[5px]"
                         placeholder="Password"
                         type="password"
+                        required
                     />
                     <input
                         name="confirmPassword"
@@ -94,6 +109,7 @@ export default function RegisterPage() {
                         className="w-[400px] h-[50px] rounded-xl border border-white text-black text-center m-[5px]"
                         placeholder="Confirm Password"
                         type="password"
+                        required
                     />
                     <button
                         onClick={handleRegister}

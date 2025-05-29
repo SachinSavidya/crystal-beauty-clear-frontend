@@ -75,7 +75,7 @@ export default function AdminProductPage(){
                 products.map(
                     (product,index)=>{
                         return(
-                            <tr key={index} className="text-center hover:bg-gray-100 cursor-pointer">
+                            <tr key={index} className="text-center hover:bg-gray-100 cursor-pointer border-b border-b-gray-300 ">
                                 <td className="p-2">{product.productId}</td>
                                 <td className="p-2">{product.productName}</td>
                                 <td className="p-2">{product.price}</td>
