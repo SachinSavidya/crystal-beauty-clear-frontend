@@ -37,7 +37,7 @@ export default function ProductOverview(){
         },[status]    
     )   
     return(
-        <div className="w-full min-h-[calc(100vh-70px)]">
+        <div className="w-full min-h-[calc(100vh-70px)] p-2 lg:p-0">
             {
                 status == "Loading" &&
                 <div className="w-full h-full flex justify-center items-center">
@@ -48,14 +48,15 @@ export default function ProductOverview(){
             }
             {
                 status == "Loaded" && 
-                <div className="w-full min-h-[calc(100vh-70px)] flex ">
-                    <div className="w-[50%] min-h-full justify-center items-center flex ">
+                <div className="w-full min-h-[calc(100vh-70px)] flex flex-col lg:flex-row">
+                    <h1 className="lg:hidden py-3 lg:py-0 text-3xl font-semibold text-center mb-4">{product.productName} <span className="text-2xl text-gray-500">{" | "}{product.altName.join(" | ")}</span></h1>
+                    <div className="w-[100%] lg:w-[50%] min-h-full justify-center items-center flex ">
                        <ImageSlider images={product.images} />
                     </div>
-                    <div className="w-[50%] min-h-full flex justify-center items-center flex-col p-[50px]">
-                        <h1 className="text-3xl font-semibold text-center mb-4">{product.productName} <span className="text-2xl text-gray-500">{" | "}{product.altName.join(" | ")}</span></h1>
+                    <div className="w-[100%] lg:w-[50%] min-h-full flex justify-center items-center flex-col lg:p-[50px] ">
+                        <h1 className="hidden lg:block text-3xl font-semibold text-center mb-4">{product.productName} <span className="text-2xl text-gray-500">{" | "}{product.altName.join(" | ")}</span></h1>
                         
-                        <div className=" flex mb-3">
+                        <div className="mt-[150px] lg:mt-0 flex mb-3">
                         {
                             product.labeledPrice>product.price?
                             <>
@@ -66,9 +67,9 @@ export default function ProductOverview(){
                                 <h2>{product.price.toFixed(2)}</h2>
                         }
                         </div>
-                        <h3 className="text-xl">{product.description}</h3>
-                        <div className="flex justify-center items-center mt-10">
-                            <button className="border rounded-md p-3 text-lg mx-4 bg-pink-600 text-white w-[250px] h-[60px] hover:bg-white hover:text-pink-600 cursor-pointer" onClick={
+                        <h3 className="text-xl p-2 text-center">{product.description}</h3>
+                        <div className="flex flex-col lg:flex-row justify-center items-center mt-10">
+                            <button className="border rounded-md p-3 text-lg mx-4 my-2 lg:my-0 bg-pink-600 text-white w-[250px] h-[60px] hover:bg-white hover:text-pink-600 cursor-pointer" onClick={
                                 ()=>{
                                     addToCart(product,1)
                                     toast.success("Product Added to the cart")
@@ -97,6 +98,7 @@ export default function ProductOverview(){
                             Buy Now
                             </button>
                         </div>
+                        
                         
                     </div>
                 </div>

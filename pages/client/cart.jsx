@@ -19,14 +19,16 @@ import { useNavigate } from "react-router-dom";
     )
 
     return(
-        <div className="w-full h-full justify-center flex p-[40px]">
-            <div className="w-[700px]">
+        <div className="w-full h-full justify-center flex lg:p-[40px] p-3">
+            <div className="w-full lg:w-[700px]">
                 {
                     cart.map(
                         (item, index)=>{
                             return(
-                                <div key={index} className="w-full h-[100px] shadow-2xl flex justify-between items-center relative mt-2">
-                                    <button className="w-[30px] h-[30px] rounded-full bg-red-500 text-white absolute right-[-50px] text-lg items-center flex justify-center hover:bg-red-600 cursor-pointer"
+                                <>
+                                {/* for large screen */}
+                                <div key={index} className="hidden w-full lg:h-[100px] shadow-2xl lg:flex justify-between items-center relative mt-2">
+                                    <button className="w-[30px] h-[30px] rounded-full bg-red-500 text-white lg:absolute right-[-50px] text-lg items-center flex justify-center hover:bg-red-600 cursor-pointer"
                                     onClick={
                                         ()=>{
                                             removeFromCart(item.productId)
@@ -35,8 +37,8 @@ import { useNavigate } from "react-router-dom";
                                     }>
                                         <LuTrash2 />
                                     </button>
-                                    <img src={item.image} className="h-full object-cover aspect-square" />
-                                    <div className="w-[300px] max-w-[300px] overflow-hidden">
+                                    <img src={item.image} className="h-[150px] lg:h-full object-cover aspect-square" />
+                                    <div className="lg:w-[300px] lg:max-w-[300px] overflow-hidden">
                                         <h1 className="text-lg font-semibold">{item.productName}</h1>
                                         <h2 className="text-gray-700">{item.altName}</h2>
                                         <h2 className="text-gray-700"><span>LKR </span>{item.price.toFixed(2)}</h2>
@@ -61,6 +63,42 @@ import { useNavigate } from "react-router-dom";
                                     </div>
 
                                 </div>
+
+                                {/* mobile screen */}
+                                <div key={index} className="lg:hidden w-full h-[150px] shadow-2xl my-3 rounded-sm flex relative">
+                                        <img src={item.image} className="h-[150px] lg:h-full object-cover aspect-square rounded-l-sm" />
+                                        <div className=" w-[180px] overflow-hidden flex flex-col justify-center ml-4 mr-2">
+                                            <h1 className="text-md font-semibold p-1">{item.productName}</h1>
+                                            <h2 className="text-gray-700 text-sm p-1">{item.altName.join(" | ")}</h2>
+                                            <h2 className="text-black font-semibold p-1"><span>LKR </span>{item.price.toFixed(2)}</h2>
+                                        </div>
+                                        <div className=" w-[75px] h-[30px] flex text-md font-semibold rounded-sm">
+                                            <button className="w-[25px] h-[25px] flex  border-gray-200 items-center justify-center rounded-full  " on onClick={
+                                                ()=>{
+                                                    addToCart(item,-1)
+                                                    setCartLoaded(false)
+                                                }
+                                            }>-</button>
+                                            <h1 className="w-[25px] h-[25px] flex justify-center items-center ">{item.quantity}</h1>
+                                            <button className="w-[25px] h-[25px] flex rounded-full items-center justify-center" on onClick={
+                                                ()=>{
+                                                    addToCart(item,1)
+                                                    setCartLoaded(false)
+                                                }
+                                            }>+</button>
+                                        </div>
+                                        <button className="w-[30px] h-[30px] rounded-full bg-red-500 text-white absolute right-2 bottom-2 text-lg items-center flex justify-center hover:bg-red-600 cursor-pointer"
+                                            onClick={
+                                                ()=>{
+                                                    removeFromCart(item.productId)
+                                                    setCartLoaded(false)
+                                                }
+                                            }>
+                                                <LuTrash2 />
+                                        </button>
+
+                                </div>       
+                                </>
                             )
                         }
                     )

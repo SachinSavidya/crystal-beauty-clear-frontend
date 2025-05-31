@@ -67,13 +67,16 @@ export default function CheckoutPage(){
 
 
     return(
-        <div className="w-ful  min-h-[calc(100vh-70px)] justify-center flex p-[40px] ">
-            <div className="w-[50%]">
+        <div className="w-ful  min-h-[calc(100vh-70px)] justify-center flex flex-col lg:flex-row lg:p-[40px] p-3">
+            <div className="w-full lg:w-[700px]">
                 {
                     cart.map(
                         (item, index)=>{
                             return(
-                                <div key={index} className="w-full h-[100px] shadow-2xl flex justify-between items-center relative mt-2">
+                                <>
+                                {/* for large screen */}
+
+                                <div key={index} className=" hidden w-full h-[100px] shadow-2xl lg:flex justify-between items-center relative mt-2">
                                     <button className="w-[30px] h-[30px] rounded-full bg-red-500 text-white absolute right-[-50px] text-lg items-center flex justify-center hover:bg-red-600 cursor-pointer"
                                     onClick={
                                         ()=>{
@@ -86,7 +89,7 @@ export default function CheckoutPage(){
                                     <img src={item.image} className="h-full object-cover aspect-square" />
                                     <div className="w-[300px] max-w-[300px] overflow-hidden">
                                         <h1 className="text-lg font-semibold">{item.productName}</h1>
-                                        <h2 className="text-gray-700">{item.altName}</h2>
+                                        <h2 className="text-gray-700">{item.altName.join(" | ")}</h2>
                                         <h2 className="text-gray-700"><span>LKR </span>{item.price.toFixed(2)}</h2>
                                     </div>
                                     <div className=" w-[120px] h-[100px] flex justify-center items-center text-2xl font-semibold">
@@ -118,6 +121,52 @@ export default function CheckoutPage(){
                                     </div>
 
                                 </div>
+
+                                {/* for mobile screen */}
+                                
+                                <div key={index} className="lg:hidden w-full h-[150px] shadow-2xl my-3 rounded-sm flex relative">
+                                    <img src={item.image} className="h-[150px] lg:h-full object-cover aspect-square rounded-l-sm" />
+                                    <div className=" w-[150px] overflow-hidden flex flex-col justify-center ml-4 mr-2">
+                                        <h1 className="text-md font-semibold p-1">{item.productName}</h1>
+                                        <h2 className="text-gray-700 text-sm p-1">{item.altName.join(" | ")}</h2>
+                                        <h2 className="text-black font-semibold p-1"><span>LKR </span>{item.price.toFixed(2)}</h2>
+                                    </div>
+                                    <div className=" w-[75px] h-[30px] flex text-md font-semibold rounded-sm absolute right-0 top-0">
+                                        <button className="w-[25px] h-[25px] flex  border-gray-200 items-center justify-center rounded-full  "  onClick={
+                                            ()=>{
+                                                const newCart = cart
+                                                newCart[index].quantity -=1
+                                                if(newCart[index].quantity <=0){
+                                                    newCart[index].quantity = 1
+                                                }
+                                                setCart(newCart)
+                                                setCartRefresh(!cartRefresh)
+  
+                                            }
+                                        }>-</button>
+                                        <h1 className="w-[25px] h-[25px] flex justify-center items-center ">{item.quantity}</h1>
+                                        <button className="w-[25px] h-[25px] flex rounded-full items-center justify-center"  onClick={
+                                            ()=>{
+                                                const newCart = cart
+                                                newCart[index].quantity += 1
+                                                setCart(newCart)
+                                                setCartRefresh(!cartRefresh)
+
+                                            }
+                                        }>+</button>
+                                    </div>
+                                    <button className="w-[30px] h-[30px] rounded-full bg-red-500 text-white absolute right-2 bottom-2 text-lg items-center flex justify-center hover:bg-red-600 cursor-pointer"
+                                        onClick={
+                                        ()=>{
+                                            const newCart = cart.filter((product)=>product.productId !== item.productId)
+                                            setCart(newCart)
+                                        }
+                                    }>
+                                            <LuTrash2 />
+                                    </button>            
+                                </div>
+
+                                </>
                             )
                         }
                     )
@@ -125,22 +174,22 @@ export default function CheckoutPage(){
                 
                 
             </div>
-            <div className="w-[50%] pl-[60px] h-full ">
-                <div className="w-full h-[200px] flex justify-end p-1  ">
-                    <div className="w-[402px] mr-2.5">
-                        <input className=" border border-gray-600 w-[400px] h-[50px] rounded-lg text-center text-xl m-1 mb-1.5" placeholder="Name"
+            <div className="lg:w-[50%] lg:pl-[60px] w-full h-full ">
+                <div className="w-full h-[200px] flex lg:justify-end lg:p-1 mt-4 lg:mt-0 ">
+                    <div className="w-full lg:w-[402px] lg:mr-2.5">
+                        <input className=" border border-gray-600 w-full lg:w-[400px] h-[50px] rounded-lg text-center text-xl lg:m-1 mb-1.5" placeholder="Name"
                         onChange={
                             (e)=>{
                                setName(e.target.value) 
                             }
                         } />
-                        <input className=" border border-gray-600 w-[400px] h-[50px] rounded-lg text-center text-xl m-1 mb-1.5" placeholder="Address"
+                        <input className=" border border-gray-600 w-full lg:w-[400px] h-[50px] rounded-lg text-center text-xl lg:m-1 mb-1.5" placeholder="Address"
                         onChange={
                             (e)=>{
                                setAddress(e.target.value) 
                             }
                         } />
-                        <input className=" border border-gray-600 w-[400px] h-[50px] rounded-lg text-center text-xl m-1 mb-1.5" placeholder="Phone Number"
+                        <input className=" border border-gray-600 w-full lg:w-[400px] h-[50px] rounded-lg text-center text-xl lg:m-1 mb-1.5" placeholder="Phone Number"
                         onChange={
                             (e)=>{
                                setPhone(e.target.value) 
@@ -149,7 +198,7 @@ export default function CheckoutPage(){
                     </div>
                     
                 </div>
-                <div className="w-full h-[100px] justify-end flex pr-3 text-xl mt-2 ">
+                <div className="w-full h-[100px] justify-end flex lg:pr-3 pr-1 text-xl lg:mt-2 ">
                     <div className="w-[100px] pr-2">
                         <h1 className=" flex justify-end">Total :</h1>
                         <h1 className=" flex justify-end">Discount :</h1>
@@ -162,7 +211,7 @@ export default function CheckoutPage(){
                     </div>  
                 </div>
                 <div className="flex justify-end w-full">
-                    <button className="w-[398px] h-[50px] text-center flex justify-center bg-pink-400 p-2 rounded-lg text-xl mt-2 mr-2.5 text-white cursor-pointer hover:bg-pink-500"
+                    <button className="lg:w-[398px] w-full h-[50px] text-center flex justify-center bg-pink-400 p-2 rounded-lg text-xl mt-2 lg:mr-2.5 text-white cursor-pointer hover:bg-pink-500"
                     onClick={
                         ()=>{
                             placeOrder();

@@ -7,7 +7,8 @@ import CheckoutPage from "./client/checkout";
 
 export default function HomePage(){
     return(
-        <div className="w-full flex flex-col min-h-screen">
+        <>
+        <div className="hidden w-full lg:flex flex-col min-h-screen">
             <Header/>
             <div className="w-full  min-h-[calc(100vh-70px)]">
                 <Routes path="/*">
@@ -22,5 +23,21 @@ export default function HomePage(){
 
             </div>
         </div>
+        <div className="flex w-full lg:hidden flex-col min-h-screen">
+            <Header/>
+            
+                <Routes path="/*">
+                    <Route path="/" element={<h1>Home page</h1>} />
+                    <Route path="/products" element={<ProductPage/>} />
+                    <Route path="/overview/:id" element={<ProductOverview/>} />
+                    <Route path="/*" element={<h1>Error 404 not found</h1>} />
+                    <Route path="/cart" element={<CartPage/>} />
+                    <Route path="/checkout" element={<CheckoutPage/>} />
+                    
+                </Routes>
+
+        </div>
+        
+        </>
     )
 }
