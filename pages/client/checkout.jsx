@@ -39,7 +39,8 @@ export default function CheckoutPage(){
             navigate("/")
         }).catch((err)=>{
             console.log(err);
-            toast.error("Order placement failed") 
+            toast.error("Order placement failed")
+            navigate("/products"); 
         })
 
       
@@ -215,7 +216,7 @@ export default function CheckoutPage(){
                     onClick={
                         ()=>{
                             placeOrder();
-                            navigate("/",
+                            navigate("/products",
                             {
                                 state : {
                                     items : cart

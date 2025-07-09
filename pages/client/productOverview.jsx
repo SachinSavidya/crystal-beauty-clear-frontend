@@ -40,7 +40,7 @@ export default function ProductOverview(){
         <div className="w-full min-h-[calc(100vh-70px)] p-2 lg:p-0">
             {
                 status == "Loading" &&
-                <div className="w-full h-full flex justify-center items-center">
+                <div className="w-full min-h-[calc(100vh-70px)] flex justify-center items-center">
 
                 <Loader/>
                 </div>         

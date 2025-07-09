@@ -1,7 +1,8 @@
-import { Link } from "react-router-dom";
+import { Link, NavLink } from "react-router-dom";
 import { BsCart4 } from "react-icons/bs";
 import { useState } from "react";
 import { IoArrowBackCircleOutline, IoMenu } from "react-icons/io5";
+import UserData from "./userData";
 
 export default function Header(){
 
@@ -9,12 +10,27 @@ export default function Header(){
 
     return(
         <div className=" w-full h-[70px] flex justify-center items-center bg-gray-200  relative">
-            <div className="w-[400px] hidden lg:flex justify-evenly text-xl text-pink-400">
-                <Link className=" hover:text-pink-600" to="/">Home</Link>
-                <Link className=" hover:text-pink-600" to="/products">Products</Link>
-                <Link className=" hover:text-pink-600" to="/about">About</Link>
-                <Link className=" hover:text-pink-600" to="/contact">Contact</Link>
-                <Link className="text-4xl absolute right-6 mr-2 hover:text-pink-600" to="/cart"><BsCart4 /></Link>
+            <div className="w-[400px] h-full items-center hidden lg:flex justify-evenly text-xl text-pink-400">
+                <NavLink className={
+                    ({isActive})=> isActive?
+                        "border-b border-b-3 text-pink-600" :"hover:text-pink-600"
+                } to="/">Home</NavLink>
+                <NavLink className={
+                    ({isActive})=> isActive?
+                        "border-b border-b-3 text-pink-600" :"hover:text-pink-600"
+                } to="/products">Products</NavLink>
+                <NavLink className={
+                    ({isActive})=> isActive?
+                        "border-b border-b-3 text-pink-600" :"hover:text-pink-600"
+                } to="/about">About</NavLink>
+                <NavLink className={
+                    ({isActive})=> isActive?
+                        "border-b border-b-3 text-pink-600" :"hover:text-pink-600"
+                } to="/contact">Contact</NavLink>
+                <div className="absolute right-[80px] top-0 h-full">
+                    <UserData />
+                </div>
+                <Link className="text-4xl absolute top-4 right-6 mr-2 hover:text-pink-600" to="/cart"><BsCart4 /></Link>
             </div>
             <div className="flex justify-between w-full lg:hidden px-3">
                 <IoMenu className=" text-pink-400 hover:text-pink-600 text-4xl" onClick={

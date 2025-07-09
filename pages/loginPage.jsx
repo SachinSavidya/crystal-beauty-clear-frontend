@@ -73,16 +73,19 @@ export default function LoginPage(){
                         (e)=>{
                             setEmail(e.target.value);
                         }}
-                        className=" w-[400px] h-[50px] rounded-xl border border-white text-black text-center m-[5px] " placeholder="Email" type="email" />
+                        className=" w-[400px] h-[50px] rounded-xl border border-gray-400 text-black text-center" placeholder="Email" type="email" />
                     <input onChange={
                         (e)=>{
                             setPassword(e.target.value);
                         }}
-                        className=" w-[400px] h-[50px] rounded-xl border border-white text-black text-center m-[5px] " placeholder="Password" type="password" />
-                    <button onClick={handleLogin} className="w-[400px] h-[50px] rounded-xl bg-blue-500 text-white cure cursor-pointer hover:bg-blue-600 ">
+                        className=" w-[400px] h-[50px] rounded-xl border border-gray-400 text-black text-center mt-2  " placeholder="Password" type="password" />
+                    <div className="w-[400px] flex justify-end mb-2 mt-1 pr-1">
+                        <Link className="text-sm underline text-gray-600 hover:text-black" to="/forgot">Forgot Password?</Link>
+                    </div>
+                    <button onClick={handleLogin} className="w-[400px] h-[50px] rounded-xl bg-blue-500 text-white cure cursor-pointer hover:bg-blue-600 mb-3 mt-4 ">
                         {loading? "Loading..." : "Login" } 
                      </button>
-                     <button onClick={loginWithGoogle} className="w-[400px] h-[50px] rounded-xl bg-blue-500 text-white cure cursor-pointer hover:bg-blue-600 mt-4 flex justify-center items-center ">
+                     <button onClick={loginWithGoogle} className="w-[400px] h-[50px] rounded-xl bg-blue-500 text-white cure cursor-pointer hover:bg-blue-600 mt-5 flex justify-center items-center mb-3 ">
                         <GrGoogle className="mr-2" />
                         {loading? "Loading..." : "Login with Google" }
                         
